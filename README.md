@@ -1,8 +1,8 @@
 #### Сценарии iptables
-####   Задание
- - реализовать "knocking port": centralRouter может попасть на ssh inetRouter через knock-скрипт;
- - добавить inetRouter2, который виден с хоста (host-only network) или форвардится порт через localhost;
- - запустить nginx на centralServer и пробросить порт 80 на inetRouter2 порт 8080;
- - выход в Интернет в сети оставить через inetRouter. Дополнительно:
-Дополнительно:
- - реализовать проход на 80й порт без маскарадинга.
+1) реализовать knocking port
+- centralRouter может попасть на ssh inetrRouter через knock скрипт
+пример в материалах
+2) добавить inetRouter2, который виден(маршрутизируется) с хоста
+3) запустить nginx на centralServer
+4) пробросить 80й порт на inetRouter2 8080
+5) дефолт в инет оставить через inetRouter
