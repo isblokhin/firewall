@@ -21,7 +21,7 @@ MACHINES = {
   :inetRouter2 => {
     :box_name => "centos/7",
     :net => [ {ip: '192.168.254.1', adapter: 2, netmask: "255.255.255.248", virtualbox__intnet: "router-net2"},]
-  } }
+} }
 
 Vagrant.configure("2") do |config|
 
@@ -102,6 +102,8 @@ Vagrant.configure("2") do |config|
      man # yum install -y nmap
       SHELL
     when "inetRouter2"
+    config.vm.network "private_network", ip: "192.168.200.1"
+    box.vm.network 'forwarded_port', guest: 8080, host: 8080, host_ip: '127.0.0.1'
     box.vm.provision "shell", run: "always", inline: <<-SHELL
       echo "DEFROUTE=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0 
       echo "GATEWAY=192.168.254.1" >> /etc/sysconfig/network-scripts/ifcfg-eth1
