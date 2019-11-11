@@ -111,10 +111,11 @@ Vagrant.configure("2") do |config|
       ip route delete default 2>&1 >/dev/null || true
       ip route add 192.168.255.0/29 via 192.168.254.2
       ip route add 192.168.20.0/24 via 192.168.254.2
+      sysctl net.ipv4.conf.all.forwarding=1
       # Сделаем проброс портов
-      iptables -t nat -A PREROUTING --dst 192.168.254.1 -p tcp --dport 8080 -j DNAT --to-destination 192.168.20.2:80
+      iptables -t nat -A PREROUTING --dst 10.0.2.15/32 -p tcp --dport 8080 -j DNAT --to-destination 192.168.20.2:80
       # И обратную подмену, т.к. маскарада у нас нет (дополнительное задание)
-      iptables -t nat -A POSTROUTING --dst 192.168.20.2 -p tcp --dport 80 -j SNAT --to-source 192.168.254.1
+       iptables -t nat -A POSTROUTING --dst 192.168.20.2 -p tcp --dport 80 -j SNAT --to-source 192.168.254.1
        echo -e "192.168.254.2 centralRouter" >> /etc/hosts   
       SHELL
       end
